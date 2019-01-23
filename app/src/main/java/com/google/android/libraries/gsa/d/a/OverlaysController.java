@@ -2,7 +2,6 @@ package com.google.android.libraries.gsa.d.a;
 
 import android.app.Service;
 import android.content.Intent;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Binder;
@@ -56,25 +55,14 @@ public abstract class OverlaysController {
                     Log.e("OverlaySController", "Invalid uid or package");
                     iBinder = null;
                 } else {
-                    try {
-                        int i2 = this.service.getPackageManager().getApplicationInfo(host, 0).flags;
-                        if ((i2 & 1) == 0 && (i2 & 2) == 0) {
-                            Log.e("OverlaySController", "Only system apps are allowed to connect");
-                            iBinder = null;
-                        } else {
-                            iBinder = this.clients.get(port);
-                            if (!(iBinder == null || iBinder.mServerVersion == parseInt)) {
-                                iBinder.destroy();
-                                iBinder = null;
-                            }
-                            if (iBinder == null) {
-                                iBinder = new OverlayControllerBinder(this, port, host, parseInt, i);
-                                this.clients.put(port, iBinder);
-                            }
-                        }
-                    } catch (NameNotFoundException e3) {
-                        Log.e("OverlaySController", "Invalid caller package");
+                    iBinder = this.clients.get(port);
+                    if (!(iBinder == null || iBinder.mServerVersion == parseInt)) {
+                        iBinder.destroy();
                         iBinder = null;
+                    }
+                    if (iBinder == null) {
+                        iBinder = new OverlayControllerBinder(this, port, host, parseInt, i);
+                        this.clients.put(port, iBinder);
                     }
                 }
             }

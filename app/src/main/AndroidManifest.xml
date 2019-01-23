@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="io.fabianterhorst.launcheroverlay">
+    <permission android:name="io.fabianterhorst.launcheroverlay.OVERLAY"/>
 
     <application
         android:allowBackup="true"
@@ -8,7 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,8 +22,8 @@
         <service
             android:name="com.google.android.apps.gsa.nowoverlayservice.DrawerOverlayService"
             android:exported="true"
-            android:externalService="true"
-            android:process=":search">
+            android:process=":search"
+            android:permission="io.fabianterhorst.launcheroverlay.OVERLAY">
             <intent-filter>
                 <action android:name="com.android.launcher3.WINDOW_OVERLAY" />
                 <data android:scheme="app" />

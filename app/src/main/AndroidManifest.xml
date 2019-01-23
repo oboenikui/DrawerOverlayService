@@ -19,6 +19,7 @@
         <service
             android:name="com.google.android.apps.gsa.nowoverlayservice.DrawerOverlayService"
             android:exported="true"
+            android:externalService="true"
             android:process=":search">
             <intent-filter>
                 <action android:name="com.android.launcher3.WINDOW_OVERLAY" />
